@@ -53,7 +53,7 @@ public class HRDataViewer implements DataViewer {
     /** Data model. */
     private HRModel model;
     
-    public Sketch sketch;
+    public AscensionXYPlot plotWindow;
 
     /** Data viewer clock. */
     private Clock clock;
@@ -85,10 +85,10 @@ public class HRDataViewer implements DataViewer {
                     Container c = hrDialog.getContentPane();
                     c.setLayout(new BorderLayout());
                     
-                    sketch = new Sketch();
+                    plotWindow = new AscensionXYPlot("test");
+					plotWindow.show();
                     System.out.println("INITING");
-                    c.add(sketch, BorderLayout.CENTER);
-                    sketch.init();
+//                    c.add(plotWindow, BorderLayout.CENTER);
                     
 
 //                    hrPanel = new HRPanel();
@@ -153,7 +153,7 @@ public class HRDataViewer implements DataViewer {
         data = dataFeed;
         model = new HRModel(data);
 
-        sketch.setModel(model);
+//        plotWindow.setModel(model);
 //        hrPanel.setModel(model);
 
         SwingUtilities.invokeLater(new Runnable() {
@@ -270,7 +270,7 @@ public class HRDataViewer implements DataViewer {
     @Override public void clearDataFeed() {
         stop();
 //        hrPanel.removeModel();
-        sketch.removeModel();
+//        plotWindow.removeModel();
         model.clearData();
         model = null;
     }
