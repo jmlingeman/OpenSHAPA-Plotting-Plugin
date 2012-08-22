@@ -78,7 +78,7 @@ public class HRDataViewer implements DataViewer {
 //        Runnable edtTask = new Runnable() {
 //                @Override public void run() {
                     hrDialog = new JDialog(parent, modal);
-                    hrDialog.setName("HRDataViewer");
+                    hrDialog.setName("Plot Viewer");
                     hrDialog.setResizable(true);
                     hrDialog.setSize(640, 480);
 
