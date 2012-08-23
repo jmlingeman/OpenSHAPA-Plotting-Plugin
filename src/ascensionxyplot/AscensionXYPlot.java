@@ -75,10 +75,10 @@ public class AscensionXYPlot extends ApplicationFrame {
      *
      * @param title  the frame title.
      */
-    public AscensionXYPlot(final String title) {
+    public AscensionXYPlot(final String title, final File dataFile) {
 
         super(title);
-        final JFreeChart chart = createCombinedChart();
+        final JFreeChart chart = createCombinedChart(dataFile);
         final ChartPanel panel = new ChartPanel(chart, true, true, true, false, true);
         panel.setPreferredSize(new java.awt.Dimension(500, 270));
         setContentPane(panel);
@@ -90,10 +90,10 @@ public class AscensionXYPlot extends ApplicationFrame {
      *
      * @return The combined chart.
      */
-    private JFreeChart createCombinedChart() {
+    private JFreeChart createCombinedChart(File dataFile) {
 
         // create subplot 1...
-        final XYDataset data1 = createDataset1();
+        final XYDataset data1 = createDataset1(dataFile);
         final XYItemRenderer renderer1 = new StandardXYItemRenderer();
         final NumberAxis rangeAxis1 = new NumberAxis("Range 1");
         final XYPlot subplot1 = new XYPlot(data1, null, rangeAxis1, renderer1);
@@ -150,10 +150,9 @@ public class AscensionXYPlot extends ApplicationFrame {
      *
      * @return Series 1.
      */
-    private XYDataset createDataset1() {
+    private XYDataset createDataset1(File dataFile) {
         
-        File file = new File("/Users/Jesse/Workspace/ActionLab/AscensionXYPlot/example_data/AscensionLog.csv");
-        Body body = DataReader.ReadAscensionControlLog(file);
+        Body body = DataReader.ReadAscensionControlLog(dataFile);
 
         Vector<Point> p = body.markers.get(String.valueOf(0)).points;
 
@@ -171,12 +170,8 @@ public class AscensionXYPlot extends ApplicationFrame {
 //        series1b.add(10.0, 15000.3);
 //        series1b.add(20.0, 11000.4);
 
-        Scanner input = new Scanner(System.in);
-        System.out.println("Enter time interval below (0-120)");
-        System.out.print("Lower bound: ");
-        Long lowerBound = input.nextLong() * 1000;
-        System.out.print("Upper bound: ");
-        Long upperBound = input.nextLong() * 1000;
+		Long lowerBound = 0L;
+		Long upperBound = 120L;
         
         Long previousTime = lowerBound;        
         int i = 0;
@@ -239,29 +234,5 @@ public class AscensionXYPlot extends ApplicationFrame {
 
     }
 
-    // ****************************************************************************
-    // * JFREECHART DEVELOPER GUIDE                                               *
-    // * The JFreeChart Developer Guide, written by David Gilbert, is available   *
-    // * to purchase from Object Refinery Limited:                                *
-    // *                                                                          *
-    // * http://www.object-refinery.com/jfreechart/guide.html                     *
-    // *                                                                          *
-    // * Sales are used to provide funding for the JFreeChart project - please    * 
-    // * support us so that we can continue developing free software.             *
-    // ****************************************************************************
-    
-    /**
-     * Starting point for the demonstration application.
-     *
-     * @param args  ignored.
-     */
-    public static void main(final String[] args) {
-
-        final AscensionXYPlot demo = new AscensionXYPlot("CombinedDomainXYPlot Demo");
-        demo.pack();
-        RefineryUtilities.centerFrameOnScreen(demo);
-        demo.setVisible(true);
-
-    }
 
 }

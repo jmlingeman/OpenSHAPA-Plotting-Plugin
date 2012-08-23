@@ -85,8 +85,7 @@ public class HRDataViewer implements DataViewer {
                     Container c = hrDialog.getContentPane();
                     c.setLayout(new BorderLayout());
                     
-                    plotWindow = new AscensionXYPlot("test");
-					plotWindow.show();
+                    
                     System.out.println("INITING");
 //                    c.add(plotWindow, BorderLayout.CENTER);
                     
@@ -155,6 +154,9 @@ public class HRDataViewer implements DataViewer {
 
 //        plotWindow.setModel(model);
 //        hrPanel.setModel(model);
+		
+		plotWindow = new AscensionXYPlot("test", dataFeed);
+		plotWindow.show();
 
         SwingUtilities.invokeLater(new Runnable() {
                 @Override public void run() {
